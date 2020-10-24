@@ -1,0 +1,22 @@
+﻿@model List<RankedNewsSites.Models.NewsSite>
+@{
+    ViewData["Title"] = "Browse";
+}
+
+<h1>Browse</h1>
+
+<div class="browse_box">
+    <ul>
+        @foreach (var site in Model)
+        {
+            <li><a href="@site.Url" target="_blank"><img src="@site.PictureSource" title="@site.Name" /></a></li>
+        }
+
+
+
+    </ul>
+
+
+
+</div>
+

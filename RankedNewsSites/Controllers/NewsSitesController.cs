@@ -25,6 +25,14 @@ namespace RankedNewsSites.Controllers
             return View(await _context.NewsSite.ToListAsync());
         }
 
+
+        public async Task<IActionResult> Browse()
+        {
+
+
+            return View(await _context.NewsSite.ToListAsync());
+        }
+
         // GET: NewsSites/Details/5
         public async Task<IActionResult> Details(int? id)
         {
