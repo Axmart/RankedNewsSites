@@ -74,12 +74,30 @@ body {
 }
 .browse_box ul li {
         display: inline-block;
-        padding:10px;
+        padding: 15px 10px 10px 10px;
 }
 .browse_box ul img{
     max-width:300px;
     
 }
-    .browse_box ul li:hover {
+.browse_box .site_box li img:hover {
         transform: scale(1.1);
-    }
+}
+
+.browse_box .site_box{
+       display: inline-block;
+}
+.browse_box .site_box li{
+    display: block;
+    padding: 0px;
+}
+.browse_box .site_box h3{
+    margin-top : 10px;
+}
+
+.like_button{
+    background-color :green;
+}
+.dislike_button{
+    background-color:red;
+}

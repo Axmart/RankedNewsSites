@@ -31,10 +31,6 @@ namespace RankedNewsSites.Models
                     new NewsSite() { Name="Metabro", PictureSource="/images/metabro.png", Points=15, Url= "https://metabro.hu/" },
                     new NewsSite() { Name="Origo", PictureSource="/images/origo.png", Points=22, Url= "https://www.origo.hu/index.html" },
                     new NewsSite() { Name="Pc Guru Online", PictureSource="/images/pcguruonline.png", Points=37, Url= "https://www.pcguru.hu/" }
-                    
-                    
-                    
-                    
                     );
 
                 context.SaveChanges();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,6 +33,45 @@ namespace RankedNewsSites.Controllers
 
             return View(await _context.NewsSite.ToListAsync());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Rate(int id, int point)
+        {
+
+            var newsSite = _context.NewsSite.FirstOrDefault(x => x.Id == id);
+            newsSite.Points += point;
+
+            if (id != newsSite.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(newsSite);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NewsSiteExists(newsSite.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Browse));
+            }
+
+            return View("Browse");
+           
+        }
+
 
         // GET: NewsSites/Details/5
         public async Task<IActionResult> Details(int? id)
