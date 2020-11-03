@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RankedNewsSites.Models;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace RankedNewsSites.Controllers
 {
+    [Authorize(Roles = "Admin,User")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
