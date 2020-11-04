@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,15 @@ namespace RankedNewsSites.Controllers
             return View(await _context.NewsSite.ToListAsync());
         }
 
+        public IActionResult Rate()
+        {
+
+
+            return RedirectToAction("Browse");
+        }
+
+
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Rate(int id, int point)
@@ -91,6 +101,7 @@ namespace RankedNewsSites.Controllers
             return View(newsSite);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: NewsSites/Create
         public IActionResult Create()
         {
@@ -113,6 +124,7 @@ namespace RankedNewsSites.Controllers
             return View(newsSite);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: NewsSites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -132,6 +144,7 @@ namespace RankedNewsSites.Controllers
         // POST: NewsSites/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Url,PictureSource,Points")] NewsSite newsSite)
@@ -165,6 +178,7 @@ namespace RankedNewsSites.Controllers
         }
 
         // GET: NewsSites/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -183,6 +197,7 @@ namespace RankedNewsSites.Controllers
         }
 
         // POST: NewsSites/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

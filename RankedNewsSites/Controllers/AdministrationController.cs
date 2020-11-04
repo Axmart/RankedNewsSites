@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RankedNewsSites.Controllers
 {
-    [Authorize(Roles = "Admin,User")]
+    [Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;

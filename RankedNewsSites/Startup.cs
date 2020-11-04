@@ -65,7 +65,7 @@ namespace RankedNewsSites
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=administration}/{action=listroles}/{id?}");
+                    pattern: "{controller=newssites}/{action=browse}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
