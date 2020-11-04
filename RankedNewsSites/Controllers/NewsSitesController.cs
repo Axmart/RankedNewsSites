@@ -34,6 +34,7 @@ namespace RankedNewsSites.Controllers
         public async Task<IActionResult> Browse()
         {
 
+            //ViewData["UserVotedOn"] = _context.UserSite.Where(x=> x.UserId == userManager.GetUserId(User));
 
             return View(await _context.NewsSite.ToListAsync());
         }
@@ -53,7 +54,7 @@ namespace RankedNewsSites.Controllers
         {
 
             var newsSite = _context.NewsSite.FirstOrDefault(x => x.Id == id);
-            newsSite.Points += point;
+            
             var userSite = _context.UserSite.FirstOrDefault(x => x.SiteId == id && x.UserId == userManager.GetUserId(User));
 
 
@@ -61,19 +62,33 @@ namespace RankedNewsSites.Controllers
             {
                 return NotFound();
             }
-            if (userSite != null)
-            {
 
-
-                return RedirectToAction(nameof(Browse));
-            }
+           
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    userSite = new UserSite() { UserId = userManager.GetUserId(User), SiteId = id };
-                    _context.Add(userSite);
+                    if (userSite == null)
+                    {
+                        userSite = new UserSite() { UserId = userManager.GetUserId(User), SiteId = id, pont = point };
+                        newsSite.Points += point;
+                        _context.Add(userSite);
+                    }
+                    else if(userSite.pont == 0)
+                    {
+                        userSite.pont = point;
+                        newsSite.Points += point;
+                        _context.Update(userSite);
+                    }
+                    else if(userSite.pont == point)
+                    {
+                        newsSite.Points += point*(-1);
+                        userSite.pont = 0;
+                        _context.Update(userSite);
+
+                    }
+                    
                     _context.Update(newsSite);
                     await _context.SaveChangesAsync();
                 }

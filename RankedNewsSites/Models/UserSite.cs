@@ -10,6 +10,7 @@ namespace RankedNewsSites.Models
 
         public string UserId { get; set; }
         public int SiteId { get; set; }
+        public int pont { get; set; }
 
     }
 }

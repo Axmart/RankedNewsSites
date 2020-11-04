@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RankedNewsSites.Data;
 
 namespace RankedNewsSites.Migrations
 {
     [DbContext(typeof(RankedNewsSitesContext))]
-    partial class RankedNewsSitesContextModelSnapshot : ModelSnapshot
+    [Migration("20201104205201_AddPointsToUserSite")]
+    partial class AddPointsToUserSite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
