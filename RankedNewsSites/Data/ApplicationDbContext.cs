@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RankedNewsSites.Models;
 
 namespace RankedNewsSites.Data
 {
@@ -12,5 +13,8 @@ namespace RankedNewsSites.Data
             : base(options)
         {
         }
+
+        
+
     }
 }

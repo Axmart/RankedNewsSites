@@ -12,5 +12,6 @@ namespace RankedNewsSites.Models
         public string Url { get; set; }
         public string PictureSource { get; set; }
         public int Points { get; set; }
+
     }
 }

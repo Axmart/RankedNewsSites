@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace RankedNewsSites.Controllers
     public class NewsSitesController : Controller
     {
         private readonly RankedNewsSitesContext _context;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public NewsSitesController(RankedNewsSitesContext context)
+        public NewsSitesController(RankedNewsSitesContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
 
         // GET: NewsSites
@@ -51,16 +54,26 @@ namespace RankedNewsSites.Controllers
 
             var newsSite = _context.NewsSite.FirstOrDefault(x => x.Id == id);
             newsSite.Points += point;
+            var userSite = _context.UserSite.FirstOrDefault(x => x.SiteId == id && x.UserId == userManager.GetUserId(User));
+
 
             if (id != newsSite.Id)
             {
                 return NotFound();
+            }
+            if (userSite != null)
+            {
+
+
+                return RedirectToAction(nameof(Browse));
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    userSite = new UserSite() { UserId = userManager.GetUserId(User), SiteId = id };
+                    _context.Add(userSite);
                     _context.Update(newsSite);
                     await _context.SaveChangesAsync();
                 }
